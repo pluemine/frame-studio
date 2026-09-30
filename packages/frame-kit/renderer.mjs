@@ -1,4 +1,5 @@
 import { validateSettings, SOCIAL_NAMES } from "./settings.mjs";
+import { FONT_FACES } from "./fonts.mjs";
 export { SOCIAL_NAMES };
 export const FONTS = {
   plex: '"Frame Plex Thai", sans-serif',
@@ -22,13 +23,16 @@ export async function loadImage(url) {
   return image;
 }
 export async function loadFonts() {
-  for (const family of ["Frame Plex Thai", "Frame Plex Thai Looped"]) {
-    const faces = await document.fonts.load(
-      `400 30px "${family}"`,
-      "กมนฮ Name",
-    );
-    if (!faces.length) throw new Error(`Font unavailable: ${family}`);
-  }
+  await Promise.all(
+    FONT_FACES.map(async ({ family, weight }) => {
+      const faces = await document.fonts.load(
+        `${weight} 30px "${family}"`,
+        "กมนฮ Name",
+      );
+      if (!faces.length)
+        throw new Error(`Font unavailable: ${family} ${weight}`);
+    }),
+  );
 }
 const rgb = (hex) =>
   hex
@@ -80,6 +84,7 @@ export function renderFrame(
     inset = 18,
     footer = 52,
     fontSize = 30,
+    fontWeight = 400,
     logoSize = 34,
     guides = false,
     slogan = "",
@@ -246,10 +251,10 @@ export function renderFrame(
       "Caption and social icons do not fit. Use fewer icons or smaller --social-size.",
     );
   let size = fontSize * scale;
-  ctx.font = `400 ${size}px ${FONTS[font]}`;
+  ctx.font = `${fontWeight} ${size}px ${FONTS[font]}`;
   while (ctx.measureText(name).width > maxName && size > 12 * scale) {
     size -= scale;
-    ctx.font = `400 ${size}px ${FONTS[font]}`;
+    ctx.font = `${fontWeight} ${size}px ${FONTS[font]}`;
   }
   if (ctx.measureText(name).width > maxName)
     throw new Error("Name is too long. Shorten it or reduce logo size.");
@@ -271,7 +276,7 @@ export function renderFrame(
     throw new Error(
       "Centered caption overlaps social icons. Use --align left.",
     );
-  ctx.font = `400 ${size}px ${FONTS[font]}`;
+  ctx.font = `${fontWeight} ${size}px ${FONTS[font]}`;
   const nameBounds = ctx.measureText(name);
   ctx.font = `400 ${small}px ${FONTS.looped}`;
   const body = ctx.measureText(/[\u0e00-\u0e7f]/.test(slogan) ? "กมนฮ" : "Hx");
@@ -311,7 +316,7 @@ export function renderFrame(
         logoColor === "auto" ? p.ink : logoColor,
       );
   }
-  ctx.font = `400 ${size}px ${FONTS[font]}`;
+  ctx.font = `${fontWeight} ${size}px ${FONTS[font]}`;
   ctx.fillStyle = p.ink;
   ctx.fillText(name, left + lw + gap, baseline);
   if (slogan) {

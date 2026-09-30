@@ -10,6 +10,7 @@ export interface FrameSettings {
   inset: number;
   footer: number;
   fontSize: number;
+  fontWeight: 300 | 400 | 500 | 600 | 700;
   logoSize: number;
   edge: "none" | "line" | "shadow";
   corners: boolean;

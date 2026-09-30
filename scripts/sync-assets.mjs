@@ -1,5 +1,6 @@
-import { cp, mkdir } from "node:fs/promises";
+import { cp, mkdir, rm } from "node:fs/promises";
 const destination = new URL("../apps/web/public/assets/", import.meta.url);
+await rm(destination, { recursive: true, force: true });
 await mkdir(destination, { recursive: true });
 await cp(
   new URL("../packages/frame-kit/assets/", import.meta.url),

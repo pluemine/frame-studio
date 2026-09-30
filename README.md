@@ -3,7 +3,9 @@
 A minimal image framing studio for web and CLI. Customize frames, typography,
 logos, and social icons with Thai and English font support.
 
-![Frame Studio editor with a minimal gallery frame and generated still-life artwork](assets/frame-studio-preview.png)
+[Live demo](https://pluemine.github.io/frame-studio/)
+
+![Frame Studio editor with a minimal gallery frame and generated still-life artwork](assets/frame-studio-preview.jpg)
 
 ## Start locally
 
@@ -23,7 +25,7 @@ The initial sample is generated artwork; page name, slogan and logo are empty.
 - **Frame:** Paper, Ink or White, custom color, original proportions or square,
   margins, fine edge or soft shadow, and photo corner marks.
 - **Brand:** Thai/English page name, smaller slogan beneath it, font sizes,
-  vertical gap, alignment and an optional logo file.
+  title weight (300–700), vertical gap, alignment and an optional logo file.
 - **Social:** Facebook, Instagram, X, TikTok and YouTube, with adjustable size.
 - **Export:** Native image pixels by default, or 1080, 2160 or 4096 px width.
   PNG is lossless. A smaller output width reduces image detail.
@@ -44,11 +46,15 @@ pnpm frame batch --input-dir ./images --output-dir ./framed --name "Page name"
 pnpm frame --help
 ```
 
-Flags override the preset. Use `--font-size`, `--slogan-size`, `--slogan-gap`,
+Flags override the preset. Use `--font-size`, `--font-weight`, `--slogan-size`, `--slogan-gap`,
 `--social-size`, `--preset`, `--color`, `--width` or `--footer` to customize.
 Use `--logo-color auto` for a monochrome logo that matches the frame. No logo or
 page name is supplied automatically. `project-logo/` contains optional SVGs;
 pass a file explicitly. Source images cannot be overwritten.
+
+Title weight is shared by the editor and CLI: 300 (Light), 400 (Regular), 500
+(Medium), 600 (Semi-bold), or 700 (Bold). Presets save it as `fontWeight`;
+older presets use 400. Slogan weight remains regular.
 
 Use `--browser /path/to/chrome` if needed. Without a local browser:
 
@@ -61,7 +67,7 @@ pnpm exec playwright install chromium
 ```bash
 pnpm pack:cli
 # In your other repository:
-pnpm add /path/to/frame-studio/dist/frame-studio-kit-0.1.0.tgz
+pnpm add /path/to/frame-studio/dist/frame-studio-kit-0.2.0.tgz
 pnpm exec frame-studio render --input image.png --output framed.png --name "Page name"
 ```
 
@@ -103,7 +109,10 @@ Use separate, single-line Conventional Commits, such as
 
 ## Assets
 
-IBM Plex Thai fonts use the included SIL Open Font License. X retains the
+IBM Plex Thai fonts and their SIL Open Font License are in
+`packages/frame-kit/assets/fonts/`. Weight variants come from the
+[Google Fonts repository](https://github.com/google/fonts/tree/main/ofl/ibmplexsansthai).
+X retains the
 geometry from the [official toolkit](https://about.x.com/en/who-we-are/brand-toolkit)
 ([source archive](https://about.x.com/content/dam/about-twitter/x/brand-toolkit/x-logo.zip),
 retrieved 2026-09-30). The other social icons are custom line-style link symbols.

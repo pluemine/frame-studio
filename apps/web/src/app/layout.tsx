@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { fontFaceCss } from "@frame-studio/kit/fonts";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Frame Studio — A little space around your image",
@@ -10,11 +12,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <head>
-        <style>{`@font-face{font-family:"Frame Plex Thai";src:url("${basePath}/assets/IBMPlexSansThai-Regular.ttf") format("truetype");font-weight:400;font-display:swap}@font-face{font-family:"Frame Plex Thai Looped";src:url("${basePath}/assets/IBMPlexSansThaiLooped-Regular.ttf") format("truetype");font-weight:400;font-display:swap}`}</style>
+        <style>{fontFaceCss(`${basePath}/assets`)}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

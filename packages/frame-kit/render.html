@@ -1,19 +1,11 @@
 <!doctype html>
 <html lang="en">
   <meta charset="utf-8" />
-  <style>
-    @font-face {
-      font-family: "Frame Plex Thai";
-      src: url("assets/IBMPlexSansThai-Regular.ttf");
-      font-weight: 400;
-    }
-    @font-face {
-      font-family: "Frame Plex Thai Looped";
-      src: url("assets/IBMPlexSansThaiLooped-Regular.ttf");
-      font-weight: 400;
-    }</style
-  ><canvas id="output"></canvas>
+  <style id="fonts"></style>
+  <canvas id="output"></canvas>
   <script type="module">
+    import { fontFaceCss } from "./fonts.mjs";
+    document.getElementById("fonts").textContent = fontFaceCss("assets");
     import {
       loadFonts,
       loadImage,
