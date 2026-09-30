@@ -1,0 +1,42 @@
+{
+  "name": "@frame-studio/kit",
+  "version": "0.1.0",
+  "description": "Shared image framing renderer and local CLI for Frame Studio.",
+  "type": "module",
+  "bin": {
+    "frame-studio": "./cli.mjs"
+  },
+  "exports": {
+    "./renderer": {
+      "types": "./renderer.d.ts",
+      "default": "./renderer.mjs"
+    },
+    "./settings": {
+      "types": "./settings.d.ts",
+      "default": "./settings.mjs"
+    }
+  },
+  "files": [
+    "cli.mjs",
+    "render.html",
+    "renderer.mjs",
+    "renderer.d.ts",
+    "settings.mjs",
+    "settings.d.ts",
+    "assets/",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/settings.test.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pluemine/frame-studio.git"
+  }
+}

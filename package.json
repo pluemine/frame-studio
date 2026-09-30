@@ -1,0 +1,19 @@
+{
+  "name": "frame-studio-workspace",
+  "private": true,
+  "packageManager": "pnpm@11.24.0",
+  "scripts": {
+    "preview": "node scripts/preview.mjs",
+    "format": "prettier --write apps/web/src packages/frame-kit scripts",
+    "dev": "pnpm --filter @frame-studio/web dev",
+    "build": "pnpm --filter @frame-studio/web build",
+    "lint": "pnpm --filter @frame-studio/web lint",
+    "typecheck": "pnpm --filter @frame-studio/web typecheck",
+    "test": "pnpm --filter @frame-studio/kit test",
+    "frame": "node packages/frame-kit/cli.mjs",
+    "pack:cli": "pnpm --filter @frame-studio/kit pack --pack-destination ./dist"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.9"
+  }
+}
