@@ -67,7 +67,7 @@ pnpm exec playwright install chromium
 ```bash
 pnpm pack:cli
 # In your other repository:
-pnpm add /path/to/frame-studio/dist/frame-studio-kit-0.1.0.tgz
+pnpm add /path/to/frame-studio/dist/frame-studio-kit-0.2.0.tgz
 pnpm exec frame-studio render --input image.png --output framed.png --name "Page name"
 ```
 
