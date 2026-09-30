@@ -595,6 +595,20 @@ export function FrameEditor() {
                 ]}
                 onChange={(v) => update("font", v as FrameSettings["font"])}
               />
+              <Choice
+                label="Title weight"
+                value={String(settings.fontWeight)}
+                items={[
+                  ["300", "Light · 300"],
+                  ["400", "Regular · 400"],
+                  ["500", "Medium · 500"],
+                  ["600", "Semi-bold · 600"],
+                  ["700", "Bold · 700"],
+                ]}
+                onChange={(v) =>
+                  update("fontWeight", Number(v) as FrameSettings["fontWeight"])
+                }
+              />
               <Range
                 label="Name size"
                 min={12}

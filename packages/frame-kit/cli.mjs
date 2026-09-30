@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { FONT_FACES } from "./fonts.mjs";
 import { parseArgs } from "node:util";
 import {
   readFile,
@@ -41,7 +42,8 @@ Options:
   --width N           original (default, no source resampling) or 256–4096 px
   --inset N           Outer inset at 1080 px (default: 18)
   --footer N          Additional footer height at 1080 px (default: 52)
-  --font-size N       Name size at 1080 px (default: 30; weight 400)
+  --font-size N       Name size at 1080 px (default: 30)
+  --font-weight N     Title weight: 300, 400 (default), 500, 600 or 700
   --logo-size N       Maximum logo height at 1080 px (default: 34)
   --edge STYLE        none (default), line, shadow
   --no-corners        Omit photo corner marks
@@ -67,6 +69,7 @@ const strings = [
   "inset",
   "footer",
   "font-size",
+  "font-weight",
   "logo-size",
   "edge",
   "browser",
@@ -215,9 +218,11 @@ async function main() {
     ["/render.html", [join(ROOT, "render.html"), "text/html"]],
     ["/renderer.mjs", [join(ROOT, "renderer.mjs"), "text/javascript"]],
     ["/settings.mjs", [join(ROOT, "settings.mjs"), "text/javascript"]],
-    ...["IBMPlexSansThai-Regular.ttf", "IBMPlexSansThaiLooped-Regular.ttf"].map(
-      (n) => [`/assets/${n}`, [join(ROOT, "assets", n), "font/ttf"]],
-    ),
+    ["/fonts.mjs", [join(ROOT, "fonts.mjs"), "text/javascript"]],
+    ...FONT_FACES.map(({ file: n }) => [
+      `/assets/fonts/${n}`,
+      [join(ROOT, "assets", "fonts", n), "font/ttf"],
+    ]),
     ...SOCIAL_NAMES.map((n) => [
       `/assets/social/${n}.svg`,
       [join(ROOT, "assets", "social", `${n}.svg`), "image/svg+xml"],
