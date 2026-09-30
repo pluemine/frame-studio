@@ -14,6 +14,15 @@
     0 12px 40px -16px #18251c33,
     0 0 0 1px #00000008;
 }
+.dark .studio-canvas {
+  background-color: #1b1e1c;
+  background-image: radial-gradient(#343b35 0.7px, transparent 0.7px);
+}
+.dark .studio-preview {
+  box-shadow:
+    0 12px 40px -16px #0009,
+    0 0 0 1px #ffffff10;
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import {
   Download,
   Upload,
@@ -101,7 +102,7 @@ async function readImage(file: File, logo = false): Promise<LoadedImage> {
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="space-y-2">
-      <div className="text-xs font-medium text-neutral-600">{label}</div>
+      <div className="text-xs font-medium text-muted-foreground">{label}</div>
       {children}
     </div>
   );
@@ -122,7 +123,9 @@ function Range({
   return (
     <div className="space-y-2.5">
       <div className="flex items-center justify-between">
-        <Label className="text-xs font-normal text-neutral-600">{label}</Label>
+        <Label className="text-xs font-normal text-muted-foreground">
+          {label}
+        </Label>
         <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] tabular-nums">
           {value} px
         </span>
@@ -188,7 +191,7 @@ function Section({
     <AccordionItem value={id}>
       <AccordionTrigger className="py-4 hover:no-underline">
         <span className="flex items-center gap-2.5">
-          <Icon className="size-4 text-neutral-400" />
+          <Icon className="size-4 text-muted-foreground" />
           {title}
         </span>
       </AccordionTrigger>
@@ -426,7 +429,8 @@ export function FrameEditor() {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <ThemeSwitcher />
             <Button
               variant="ghost"
               className="hidden sm:inline-flex"
@@ -469,10 +473,10 @@ export function FrameEditor() {
           <Accordion defaultValue={["image", "frame", "brand"]} multiple>
             <Section id="image" icon={ImagePlus} title="Image">
               <button
-                className="flex w-full items-center gap-3 rounded-lg border border-dashed bg-neutral-50 px-3 py-3.5 text-left hover:border-neutral-400"
+                className="flex w-full items-center gap-3 rounded-lg border border-dashed bg-muted/40 px-3 py-3.5 text-left hover:border-foreground/40"
                 onClick={() => imageInput.current?.click()}
               >
-                <Upload className="size-4 text-neutral-500" />
+                <Upload className="size-4 text-muted-foreground" />
                 <span className="min-w-0">
                   <span className="block truncate text-xs font-medium">
                     {source && !source.demo ? source.name : "Choose your image"}
@@ -509,7 +513,7 @@ export function FrameEditor() {
                         return next;
                       })
                     }
-                    className={`rounded-lg border p-2 text-center ${settings.preset === value && !settings.color ? "border-neutral-700 bg-neutral-50" : "border-border hover:border-neutral-400"}`}
+                    className={`rounded-lg border p-2 text-center ${settings.preset === value && !settings.color ? "border-foreground/60 bg-muted/40" : "border-border hover:border-foreground/40"}`}
                   >
                     <span
                       className="relative mx-auto mb-2 block h-9 w-full rounded-sm border border-black/5"
@@ -532,7 +536,7 @@ export function FrameEditor() {
                         : "#f4f0e6"
                     }
                     onChange={(e) => update("color", e.target.value)}
-                    className="size-8 cursor-pointer rounded border bg-white p-0.5"
+                    className="size-8 cursor-pointer rounded border bg-background p-0.5"
                   />
                   <Input
                     aria-label="Frame color hex"
@@ -614,7 +618,7 @@ export function FrameEditor() {
               />
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-neutral-600">
+                  <span className="text-xs text-muted-foreground">
                     Logo · optional
                   </span>
                   {logo && (
@@ -662,7 +666,7 @@ export function FrameEditor() {
               </div>
             </Section>
             <Section id="social" icon={Shapes} title="Social icons">
-              <div className="grid grid-cols-5 gap-1.5">
+              <div className="grid grid-cols-5 gap-1.5 p-1">
                 {SOCIAL_NAMES.map((platform) => (
                   <Button
                     key={platform}
@@ -671,7 +675,7 @@ export function FrameEditor() {
                         ? "secondary"
                         : "outline"
                     }
-                    className={`h-10 px-0 ${settings.social.includes(platform) ? "ring-1 ring-neutral-500" : ""}`}
+                    className={`h-10 min-w-0 px-0 ${settings.social.includes(platform) ? "border-foreground/50 ring-1 ring-inset ring-foreground/30" : ""}`}
                     aria-label={platforms[platform]}
                     aria-pressed={settings.social.includes(platform)}
                     onClick={() => toggleSocial(platform)}
@@ -681,7 +685,7 @@ export function FrameEditor() {
                       src={`${base}/assets/social/${platform}.svg`}
                       width={28}
                       height={28}
-                      className="size-7"
+                      className="size-7 dark:invert"
                     />
                   </Button>
                 ))}
@@ -779,8 +783,8 @@ export function FrameEditor() {
             </Button>
           </div>
         </aside>
-        <section className="order-1 flex min-w-0 flex-col bg-[#fafaf9] lg:order-2 lg:sticky lg:top-[77px] lg:h-[calc(100dvh-77px)]">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b bg-white/70 px-5 py-3.5 sm:px-7">
+        <section className="order-1 flex min-w-0 flex-col bg-muted/20 lg:order-2 lg:sticky lg:top-[77px] lg:h-[calc(100dvh-77px)]">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b bg-background/80 px-5 py-3.5 sm:px-7">
             <div className="flex items-center gap-2 text-xs">
               <span className="size-1.5 rounded-full bg-[#65936e]" />
               <span className="font-medium">Live preview</span>
@@ -796,7 +800,7 @@ export function FrameEditor() {
                   ? `${dimensions.width} × ${dimensions.height}`
                   : "Loading…"}
               </span>
-              <div className="flex gap-0.5 rounded-md border bg-white p-0.5">
+              <div className="flex gap-0.5 rounded-md border bg-background p-0.5">
                 <Button
                   size="xs"
                   variant={zoom === "fit" ? "secondary" : "ghost"}
@@ -828,9 +832,9 @@ export function FrameEditor() {
             {error && (
               <div
                 role="alert"
-                className="absolute inset-0 z-10 grid place-items-center bg-[#f3f3f0]/95 p-6"
+                className="absolute inset-0 z-10 grid place-items-center bg-background/95 p-6"
               >
-                <div className="max-w-sm rounded-xl border bg-white p-5 text-center">
+                <div className="max-w-sm rounded-xl border bg-background p-5 text-center">
                   <p className="text-sm font-medium">
                     A little adjustment needed
                   </p>
@@ -859,14 +863,14 @@ export function FrameEditor() {
             {rendering && source && (
               <span
                 role="status"
-                className="absolute right-4 bottom-4 rounded-full border bg-white px-3 py-1.5 text-[10px] text-muted-foreground"
+                className="absolute right-4 bottom-4 rounded-full border bg-background px-3 py-1.5 text-[10px] text-muted-foreground"
               >
                 <Loader2 className="mr-1.5 inline size-3 animate-spin" />
                 Updating preview
               </span>
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-2 border-t bg-white/70 px-5 py-3 text-[10px] text-muted-foreground sm:px-7">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t bg-background/80 px-5 py-3 text-[10px] text-muted-foreground sm:px-7">
             <span className="flex items-center gap-1.5">
               <LockKeyhole className="size-3" />
               Processed on your device
