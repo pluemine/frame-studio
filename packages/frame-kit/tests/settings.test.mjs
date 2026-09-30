@@ -15,9 +15,12 @@ test("portable preset accepts Thai and deduplicates selected social icons", () =
     slogan: "พื้นที่เล็ก ๆ สำหรับภาพ",
     social: "x,instagram,x",
     fontSize: "32",
+    fontWeight: "600",
   });
   assert.equal(s.name, "ตัวอย่าง");
   assert.equal(s.fontSize, 32);
+  assert.equal(s.fontWeight, 600);
+  assert.equal(validateSettings({ name: "Legacy preset" }).fontWeight, 400);
   assert.deepEqual(s.social, ["x", "instagram"]);
   assert.deepEqual(validateSettings(JSON.parse(JSON.stringify(s))), s);
 });
@@ -26,6 +29,7 @@ test("invalid presets cannot reach the renderer", () => {
     { sloganPosition: "inline" },
     { color: "#fff" },
     { fontSize: NaN },
+    { fontWeight: 450 },
     { width: 9000 },
     { social: ["unknown"] },
     { corners: "false" },

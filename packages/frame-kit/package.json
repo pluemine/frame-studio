@@ -7,6 +7,10 @@
     "frame-studio": "./cli.mjs"
   },
   "exports": {
+    "./fonts": {
+      "types": "./fonts.d.ts",
+      "default": "./fonts.mjs"
+    },
     "./renderer": {
       "types": "./renderer.d.ts",
       "default": "./renderer.mjs"
@@ -23,6 +27,8 @@
     "renderer.d.ts",
     "settings.mjs",
     "settings.d.ts",
+    "fonts.mjs",
+    "fonts.d.ts",
     "assets/",
     "README.md"
   ],

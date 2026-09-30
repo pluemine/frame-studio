@@ -1,3 +1,4 @@
+import { FONT_WEIGHTS } from "./fonts.mjs";
 export const SOCIAL_NAMES = ["facebook", "instagram", "x", "tiktok", "youtube"];
 export const DEFAULTS = Object.freeze({
   name: "",
@@ -8,6 +9,7 @@ export const DEFAULTS = Object.freeze({
   inset: 18,
   footer: 52,
   fontSize: 30,
+  fontWeight: 400,
   logoSize: 34,
   edge: "none",
   corners: true,
@@ -35,6 +37,9 @@ export function validateSettings(input) {
   for (const key of Object.keys(input))
     if (!allowed.includes(key)) throw new Error(`Unknown setting: ${key}`);
   const options = { ...DEFAULTS, ...input };
+  options.fontWeight = Number(options.fontWeight);
+  if (!FONT_WEIGHTS.includes(options.fontWeight))
+    throw new Error(`fontWeight must be ${FONT_WEIGHTS.join(", ")}.`);
   for (const [key, max] of [
     ["name", 120],
     ["slogan", 180],
