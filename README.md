@@ -5,7 +5,7 @@ logos, and social icons with Thai and English font support.
 
 [Live demo](https://pluemine.github.io/frame-studio/)
 
-![Frame Studio editor with a minimal gallery frame and generated still-life artwork](assets/frame-studio-preview.png)
+![Frame Studio editor with a minimal gallery frame and generated still-life artwork](assets/frame-studio-preview.jpg)
 
 ## Start locally
 
